@@ -1,31 +1,44 @@
 // supabase.service.ts
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { supabase } from '../core/supabase-client';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SupabaseService {
-  private supabase: SupabaseClient;
-
-  constructor() {
-    const supabaseUrl = 'https://fcefvdpfcoqmadgsfnyn.supabase.co'; // Project URL
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjZWZ2ZHBmY29xbWFkZ3NmbnluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAwNzkzODgsImV4cCI6MjA3NTY1NTM4OH0.idw80I4byZNE0mCgEwZqEvYD4HfHvnpR_pYW5CFfVrQ';                  // Key bạn đã lấy
-    this.supabase = createClient(supabaseUrl, supabaseKey);
-  }
 
   async getGuests() {
-    const { data, error } = await this.supabase
+    const { data, error } = await supabase
       .from('guests')
       .select('*');
     if (error) throw error;
     return data;
   }
 
-  async addGuests(guests: any) {
-    const { data, error } = await this.supabase
+  async addGuests(guest: any) {
+    const { data, error } = await supabase
       .from('guests')
-      .insert([guests]);
+      .insert([guest])
+      .select(); 
+    if (error) throw error;
+    return data;
+  }
+
+  async updateGuest(id: number, updates: any) {
+    const { data, error } = await supabase
+      .from('guests')
+      .update(updates)
+      .eq('id', id)  
+      .select();     
+    if (error) throw error;
+    return data;
+  }
+
+  async deleteGuest(id: number) {
+    const { data, error } = await supabase
+      .from('guests')
+      .delete()
+      .eq('id', id);
     if (error) throw error;
     return data;
   }
