@@ -1,0 +1,44 @@
+<div class="d-flex align-items-center justify-content-center min-vh-100 position-relative login-bg">
+  <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary bg-opacity-25 backdrop-blur"></div>
+  <div class="card shadow-lg border-0 bg-white bg-opacity-90 text-dark p-4" style="width: 380px; z-index: 1;">
+    <div class="text-center mb-4">
+      <h3 class="fw-bold">Sign in to celebrate love</h3>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Username</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-primary text-primary">
+            <i class="bi bi-envelope"></i>
+          </span>
+          <input
+            type="text"
+            formControlName="username"
+            class="form-control border-primary"
+            placeholder="nhập tài khoản..."
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Password</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-primary text-primary">
+            <i class="bi bi-lock"></i>
+          </span>
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            class="form-control border-primary"
+            placeholder="Nhập mật khẩu..."
+          />
+          <button class="btn btn-outline-primary" type="button" (click)="togglePassword()">
+            <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 fw-bold mt-3 shadow-sm">Đăng nhập</button>
+    </form>
+  </div>
+</div>
