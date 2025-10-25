@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TemplatesRoutingModule } from './templates-routing.module';
 import { Temp1Component } from './components/temp1/temp1.component';
+import { NgParticlesModule } from "ng-particles";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { Temp1Component } from './components/temp1/temp1.component';
   ],
   imports: [
     CommonModule,
-    TemplatesRoutingModule
+    TemplatesRoutingModule,
+    NgParticlesModule
   ]
 })
 export class TemplatesModule { }

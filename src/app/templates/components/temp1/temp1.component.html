@@ -1,1 +1,57 @@
-<p>temp1 works!</p>
+<header class="header">
+  <div class="logo">
+    <h2>T<i class="fa-solid fa-heart left_heart"></i>H</h2>
+  </div>
+
+  <div class="menu-icon" id="menu-icon" (click)="toggleMenu()">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+  <nav class="navbar" id="navbar">
+    <ul>
+      <li><a href="#couple" class="active">Cặp đôi</a></li>
+      <li><a href="#love-story">Chuyện tình yêu</a></li>
+      <li><a href="#album">Album hình cưới</a></li>
+      <li><a href="#event">Sự kiện cưới</a></li>
+      <li><a href="#guestbook">Sổ lưu bút</a></li>
+      <li><a href="#gift">Mừng cưới</a></li>
+      <span class="underline"></span>
+    </ul>
+  </nav>
+</header>
+<div class="snow-container">
+  <div *ngFor="let snow of snowflakes" 
+       class="snowflake"
+       [ngStyle]="{
+         left: snow.left,
+         fontSize: snow.size,
+         animationDuration: snow.duration,
+         animationDelay: snow.delay
+       }">❅</div>
+</div>
+<div class="content_wedding">
+  <section id="banner" class="container">💑 Phần banner</section>
+  <section id="couple" class="container">💑 Phần Cặp đôi</section>
+  <section id="love-story" class="container">💌 Phần Chuyện tình yêu</section>
+  <section id="album" class="container">📸 Album hình cưới</section>
+  <section id="event" class="container">🎉 Sự kiện cưới</section>
+  <section id="guestbook" class="container">📖 Sổ lưu bút</section>
+  <section id="gift" class="container">🎁 Mừng cưới</section>
+</div>
+<div class="overlay" (click)="toggleMenu()">
+  <nav class="navbar_mobile" (click)="$event.stopPropagation()">
+    <ul>
+      <li *ngFor="let item of menuItems">
+        <a 
+          href="{{ item.link }}" 
+          [class.active]="activeLink === item.link"
+          (click)="onSelectLink(item.link)"
+        >
+          {{ item.label }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<button (click)="toggleMusic()" class="music-btn" [class.playing]="isPlaying">
+  <i class="fa-solid" [ngClass]="isPlaying ? 'fa-volume-high' : 'fa-volume-xmark'"></i>
+</button>
