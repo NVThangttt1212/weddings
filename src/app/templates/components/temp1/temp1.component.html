@@ -19,9 +19,7 @@
   </nav>
 </header>
 <div class="snow-container">
-  <div *ngFor="let snow of snowflakes" 
-       class="snowflake"
-       [ngStyle]="{
+  <div *ngFor="let snow of snowflakes" class="snowflake" [ngStyle]="{
          left: snow.left,
          fontSize: snow.size,
          animationDuration: snow.duration,
@@ -29,7 +27,31 @@
        }">❅</div>
 </div>
 <div class="content_wedding">
-  <section id="banner" class="container">💑 Phần banner</section>
+  <section id="banner" class="banner">
+    <div class="overlay-banner"></div>
+
+    <div class="slideshow" *ngFor="let img of imagesBanner; let i = index" [style.backgroundImage]="'url(' + img + ')'"
+      [class.active]="i === currentIndex">
+    </div>
+
+    <div class="banner-content">
+      <p class="date">SAVE THE DATE</p>
+      <div class="name-wedding">
+        <h1>Nguyễn Thăng</h1>
+        <span>&</span>
+        <h1> Phạm Hoa</h1>
+      </div>
+      <p class="date">30 Tháng 11 2025</p>
+      <button class="btn" (click)="send()">
+        <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
+          <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
+          <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
+        </svg>
+        <span>GỬI LỜI CHÚC</span>
+      </button>
+    </div>
+  </section>
+
   <section id="couple" class="container">💑 Phần Cặp đôi</section>
   <section id="love-story" class="container">💌 Phần Chuyện tình yêu</section>
   <section id="album" class="container">📸 Album hình cưới</section>
@@ -39,13 +61,14 @@
 </div>
 <div class="overlay" (click)="toggleMenu()">
   <nav class="navbar_mobile" (click)="$event.stopPropagation()">
+    <div class="close_btn">
+      <button (click)="closeMenu()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
     <ul>
       <li *ngFor="let item of menuItems">
-        <a 
-          href="{{ item.link }}" 
-          [class.active]="activeLink === item.link"
-          (click)="onSelectLink(item.link)"
-        >
+        <a href="{{ item.link }}" [class.active]="activeLink === item.link" (click)="onSelectLink(item.link)">
           {{ item.label }}
         </a>
       </li>

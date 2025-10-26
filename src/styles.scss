@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600&display=swap');
 
 html {
-  font-size: 18px; 
+  font-size: 18px;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 400;
   letter-spacing: 0.2px;
   line-height: 1.6;
@@ -17,6 +18,43 @@ html {
 
 /* Tiêu đề hoặc logo dùng font Great Vibes */
 
-.p-toast-icon-close{
-    border: none !important;
+.p-toast-icon-close {
+  border: none !important;
+}
+
+.btn {
+  width: 180px;
+  height: 60px;
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  transition: 1.3s ease-in-out;
+  border-radius: 8px;
+}
+
+svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  fill: none;
+  stroke: #fff;
+  stroke-dasharray: 150 480;
+  stroke-dashoffset: 150;
+  transition: 1.3s ease-in-out;
+}
+
+.btn:hover {
+  transition: 1s ease-in-out;
+  background: #4F95DA;
+}
+
+.btn:hover svg {
+  stroke-dashoffset: -480;
+}
+
+.btn span {
+  color: white;
+  font-size: 18px;
+  font-weight: 100;
 }

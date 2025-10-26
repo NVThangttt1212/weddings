@@ -8,7 +8,7 @@ import { Observable, defer } from 'rxjs';
 })
 export class SupabaseService {
 
- getGuests(): Observable<any> {
+  getGuests(): Observable<any> {
     return defer(async () => {
       const { data, error } = await supabase.from('guests').select('*');
       if (error) throw error;
@@ -50,9 +50,26 @@ export class SupabaseService {
     });
   }
 
-  getAccount(): Observable<any> {
+  getAllAccount(): Observable<any> {
     return defer(async () => {
       const { data, error } = await supabase.from('accounts').select('*');
+      if (error) throw error;
+      return data;
+    });
+  }
+
+  getAccount(id:string): Observable<any> {
+    return defer(async () => {
+      const { data, error } = await supabase.from('accounts').select(id);
+      if (error) throw error;
+      return data;
+    });
+  }
+
+
+   getTemplate(id:any): Observable<any> {
+    return defer(async () => {
+      const { data, error } = await supabase.from('templateWedding').select(id);
       if (error) throw error;
       return data;
     });

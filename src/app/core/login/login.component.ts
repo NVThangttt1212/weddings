@@ -31,7 +31,7 @@ export class LoginComponent {
 
   onLogin() {
     if (this.loginForm.valid) {
-      this.supabaseService.getAccount().subscribe(
+      this.supabaseService.getAllAccount().subscribe(
         res => {
           if (res) {
             const found = res.find((item: any) => item.username === this.loginForm.get('username')?.value);
