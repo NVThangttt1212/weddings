@@ -43,16 +43,43 @@
       </div>
       <p class="date">30 Tháng 11 2025</p>
       <button class="btn" (click)="send()">
-        <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
+        <svg viewBox="0 0 180 60" class="border">
           <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
           <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
         </svg>
-        <span>GỬI LỜI CHÚC</span>
+        <span class="send">GỬI LỜI CHÚC</span>
       </button>
     </div>
   </section>
 
-  <section id="couple" class="container">💑 Phần Cặp đôi</section>
+  <section id="couple" class="container couple">
+    <div class="couple-img" [ngClass]="hoverSide">
+      <div class="img groom" (mouseenter)="hoverSide='groom'" (mouseleave)="hoverSide=''">
+        <img src={{couple.groom.img}} alt="Chú rể">
+        <div class="description">
+          <h3>{{couple.groom.name}}</h3>
+          <h4>( Chú rể )</h4>
+          <p class="limited-text">{{ couple.groom.des }}</p>
+          <span class="more-btn" (click)="handleOpenDialog('groom')" *ngIf="!showFull">Xem thêm</span>
+        </div>
+      </div>
+
+      <div class="traitim">
+        <img class="heart" src="../../../../assets/traitim.png" alt="trái tim">
+      </div>
+
+      <div class="img bride" (mouseenter)="hoverSide='bride'" (mouseleave)="hoverSide=''">
+        <img src={{couple.bride.img}} alt="Cô dâu">
+        <div class="description">
+          <h3>{{couple.bride.name}}</h3>
+          <h4>( Cô dâu )</h4>
+          <p class="limited-text">{{ couple.bride.des }}</p>
+          <span class="more-btn" (click)="handleOpenDialog('bride')" *ngIf="!showFull">Xem thêm</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
   <section id="love-story" class="container">💌 Phần Chuyện tình yêu</section>
   <section id="album" class="container">📸 Album hình cưới</section>
   <section id="event" class="container">🎉 Sự kiện cưới</section>
@@ -78,3 +105,18 @@
 <button (click)="toggleMusic()" class="music-btn" [class.playing]="isPlaying">
   <i class="fa-solid" [ngClass]="isPlaying ? 'fa-volume-high' : 'fa-volume-xmark'"></i>
 </button>
+
+<p-dialog *ngIf="showFull" [(visible)]="showFull" [modal]="true" [closable]="false">
+  <div class="headerDialog">
+    <button type="button" (click)="showFull=false">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="img_dialog">
+    <img [src]="dataDialog?.img" [alt]="dataDialog?.name">
+    <div class="description">
+      <h4>{{dataDialog?.name}} {{ dataDialog?.groom ? '(Chú rể)' : '(Cô dâu)' }}</h4>
+      <p>{{ dataDialog?.des }}</p>
+    </div>
+  </div>
+</p-dialog>

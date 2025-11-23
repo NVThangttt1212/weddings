@@ -11,6 +11,8 @@ export class Temp1Component implements OnInit, AfterViewInit, OnDestroy {
   activeLink = '#couple';
   music = new Audio('assets/music/motnha.mp3');
   isPlaying = false;
+  showFull = false;
+  hoverSide: string = '';
   menuItems = [
     { label: 'Cặp đôi', link: '#couple' },
     { label: 'Chuyện tình yêu', link: '#love-story' },
@@ -19,6 +21,27 @@ export class Temp1Component implements OnInit, AfterViewInit, OnDestroy {
     { label: 'Sổ lưu bút', link: '#guestbook' },
     { label: 'Mừng cưới', link: '#gift' },
   ];
+
+  couple = {
+    groom: {
+      groom: true,
+      img: '../../../../assets/daure/Thăng.jpg',
+      name: 'Nguyễn Thăng',
+      des: 'Là một người hiền lành và ít nói. Luôn coi trọng tình cảm và yêu thương gia đình. Với anh: “Gia đình là điểm tựa vững chắc nhất và là bến đỗ bình yên không đâu sánh bằng đối với mỗi con người. Đó luôn là nơi tràn ngập tình yêu thương để ta trở về.”',
+      yourSon: 'Nguyễn Văn Long',
+      yourChild: 'Nguyễn Thị Nga'
+    },
+    bride: {
+      bride: true,
+      name: 'Phạm Hoa',
+      img: '../../../../assets/daure/Hoa.jpg',
+      des: 'Là một người hiền lành và ít nói. Luôn coi trọng tình cảm và yêu thương gia đình. Với anh: “Gia đình là điểm tựa vững chắc nhất và là bến đỗ bình yên không đâu sánh bằng đối với mỗi con người. Đó luôn là nơi tràn ngập tình yêu thương để ta trở về.”',
+      yourSon: 'Nguyễn Văn Long',
+      yourChild: 'Nguyễn Thị Nga'
+    },
+    des: 'Sau 7 năm yêu xa — vượt qua mọi khoảng cách, múi giờ và... cả cơn buồn ngủ khi phải call mỗi đêm — cuối cùng Duy Phi & Yến Nhi cũng chính thức “về một đội”! Chúng mình thật sự rất vui "xúc động lắm luôn! " khi thấy bạn có mặt trong ngày đặc biệt này.Cảm ơn bạn đã cùng chúng mình chia sẻ niềm hạnh phúc mà hai đứa đã nuôi dưỡng suốt những năm tháng yêu xa.Tình yêu này có thể bay qua hàng ngàn cây số, nhưng chính sự chúc phúc và tình cảm của mọi người mới là đôi cánh thật sự giúp chúng mình bay tới hôm nay.Một lần nữa, cảm ơn vì đã đến, đã vui, và đã yêu thương nhiều đến vậy!— Khủng long con ham ăn & Tiểu Heo Bông 💍✨'
+  }
+  dataDialog: any = null
   currentIndex = 0;
   private intervalId?: any;
   imagesBanner = [
@@ -53,6 +76,15 @@ export class Temp1Component implements OnInit, AfterViewInit, OnDestroy {
     }, 5000);
   }
 
+  handleOpenDialog(type: string) {
+    if (type === 'groom') {
+      this.dataDialog = this.couple.groom
+    } else {
+      this.dataDialog = this.couple.bride
+    }
+    this.showFull = true
+  }
+
   handleApi() {
     this.supabaseService.getTemplate(1).subscribe(
       res => {
@@ -69,10 +101,10 @@ export class Temp1Component implements OnInit, AfterViewInit, OnDestroy {
             name: "Phạm Hoa",
             dad: 'Phạm Ngọc Văn',
             mom: 'Phạm Thị Nhạn',
-            des: 'Cô gái đến từ xứ sở sương mù Đà Lạt. Là một người hay cười nhưng lại sống nội tâm, thích đọc sách, trồng cây và yêu thiên nhiên',
+            des: 'Cô gái đến từ xứ sở sương mù An Thanh. Là một người hay cười nhưng lại sống nội tâm, thích đọc sách, trồng cây và yêu thiên nhiên',
             img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80'
           },
-          descriptions: 'Sau 7 năm yêu xa — vượt qua mọi khoảng cách, múi giờ và... cả cơn buồn ngủ khi phải call mỗi đêm — cuối cùng Duy Phi & Yến Nhi cũng chính thức “về một đội”! 🥰'
+          descriptions: 'Sau 4 năm yêu xa — vượt qua mọi khoảng cách, múi giờ và... cả cơn buồn ngủ khi phải call mỗi đêm — cuối cùng Duy Phi & Yến Nhi cũng chính thức “về một đội”! 🥰'
         }
       }
 

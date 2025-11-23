@@ -220,6 +220,9 @@ body {
 .slideshow {
   position: absolute;
   inset: 0;
+  background-position: center;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
   background-size: 120%;
   background-position: center;
   opacity: 0;
@@ -229,7 +232,7 @@ body {
 
   &.active {
     opacity: 1;
-    background-size: 100%; 
+    background-size: 100%;
     z-index: 1;
   }
 }
@@ -240,19 +243,14 @@ body {
   inset: 0;
   clip-path: inherit;
   z-index: 2;
-  background: linear-gradient(
-    rgba(90, 70, 160, 0.4),
-    rgba(60, 40, 120, 0.55)
-  );
+  background: linear-gradient(rgba(90, 70, 160, 0.4),
+      rgba(60, 40, 120, 0.55));
   backdrop-filter: brightness(0.95) blur(2px);
 
-  /* Thêm hiệu ứng zoom khớp với ảnh */
-  transform: scale(1.1);
-  transition: transform 6s ease-in-out;
 }
 
 /* Khi ảnh active, overlay cũng co lại */
-.slideshow.active ~ .overlay-banner {
+.slideshow.active~.overlay-banner {
   transform: scale(1);
 }
 
@@ -289,16 +287,311 @@ body {
   }
 }
 
+.couple {
+  position: relative;
+
+  .couple-img {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    top: -200px;
+
+    .img {
+      background-color: #fff;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      width: 400px;
+      height: 400px;
+    }
+
+    .img img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Ẩn description lúc đầu */
+    .img .description {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      h3 {
+        font-weight: bold;
+        color: #7387f8;
+      }
+
+      h4 {
+        font-style: italic;
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+
+      .limited-text {
+        font-size: 18px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .more-btn {
+        font-size: 18px;
+        cursor: pointer;
+        color: #4a90e2;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    .img:hover .description {
+      opacity: 1;
+      visibility: visible;
+
+    }
+
+  }
+
+  .couple-img .traitim {
+    transition: transform 0.4s ease;
+    position: absolute;
+    z-index: 10;
+    bottom: -40px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 8px;
+  }
+
+  .couple-img .traitim img {
+    width: 90px;
+    height: 90px;
+    transition: transform 0.4s ease;
+  }
+
+  /* Hover chú rể → nghiêng trái */
+  .couple-img.groom .traitim img {
+    transform: rotate(-14deg);
+  }
+
+  /* Hover cô dâu → nghiêng phải */
+  .couple-img.bride .traitim img {
+    transform: rotate(12deg);
+  }
+}
+
+//* Overlay nền mờ */
+.p-dialog-mask {
+  transition: background-color 0.3s;
+}
+
+/* Dialog đẹp hơn */
+.p-dialog {
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:host ::ng-deep {
+  .p-component-overlay {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+
+  }
+
+  .p-dialog .p-dialog-header {
+    display: none;
+  }
+
+  .p-dialog {
+    max-width: 700px !important;
+  }
+
+  .p-dialog-content {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+}
+
+.headerDialog {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    background-color: transparent;
+    border: none;
+    padding: 10px 14px;
+
+    i {
+      font-size: 18px;
+
+    }
+  }
+}
+
+/* Header với icon */
+.p-dialog .p-dialog-header {
+  background-color: #4a90e2;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Icon trong header */
+.p-dialog .p-dialog-header i {
+  font-size: 1.5rem;
+}
+
+/* Nội dung dialog */
+.img_dialog {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.img_dialog img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #4a90e2;
+}
+
+.description {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.description h4 {
+  color: #777;
+  margin: 0.2rem 0 0.5rem;
+  font-weight: normal;
+}
+
+.description p.limited-text {
+  color: #333;
+  line-height: 1.5rem;
+  max-height: 4.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  :host ::ng-deep .p-dialog {
+    max-width: 90% !important;
+  }
+
+  .couple-img .traitim img {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .traitim {
+    bottom: auto !important;
+  }
+
+  .couple-img {
+    flex-direction: column;
+    align-items: center;
+    top: -100px !important;
+
+    .img {
+      width: 70% !important;
+      height: 70% !important;
+    }
+  }
+
+  .img_dialog {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .img_dialog img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .description {
+    margin-top: 0.5rem;
+  }
+}
+
 
 @media (max-width: 1024px) {
+  .couple {
+    .couple-img {
+      .img {
+        width: 40%;
+        height: 40%;
+      }
+    }
+  }
+
+  .banner {
+    height: 80vh;
+  }
+
+  p {
+    font-size: 18px !important;
+  }
+
+  span {
+    font-size: 18px !important;
+  }
+
+  h2 {
+    font-size: 30px !important;
+  }
+
+  h1 {
+    font-size: 34px !important;
+  }
+
+  .slideshow {
+    background-size: 340%;
+    transform: none;
+    background-repeat: no-repeat;
+
+    &.active {
+      background-size: 290%;
+    }
+  }
+
   .menu-icon {
     display: block;
     z-index: 110;
   }
 
+  .send {
+    font-size: 16px !important;
+  }
+
   .music-btn {
     position: fixed;
-    bottom: 20px;
+    bottom: 40px;
     left: 20px;
     width: 30px;
     height: 30px;

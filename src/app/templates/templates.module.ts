@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { TemplatesRoutingModule } from './templates-routing.module';
 import { Temp1Component } from './components/temp1/temp1.component';
 import { NgParticlesModule } from "ng-particles";
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { NgParticlesModule } from "ng-particles";
   imports: [
     CommonModule,
     TemplatesRoutingModule,
-    NgParticlesModule
+    NgParticlesModule,
+    DialogModule,
+    ButtonModule
   ]
 })
 export class TemplatesModule { }
